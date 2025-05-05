@@ -9,7 +9,7 @@ import { MdEdit } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const App = () => {
-  const baseUrl = "http://localhost:5002/";
+  const baseUrl = "https://ecommerce-backend-two-vert.vercel.app/";
 
   const [Products, setProducts] = useState([]);
   const [apiload, setApiLoad] = useState(false);
