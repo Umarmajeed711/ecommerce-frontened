@@ -19,11 +19,10 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}get-products`)
+      .get(`${baseUrl}products`)
       .then((res) => {
-        console.log(res.data);
-
-        setProducts(res.data);
+        console.log(res);
+        setProducts(res?.data?.productList);
       })
       .catch((error) => {
         console.log(error);
@@ -47,18 +46,18 @@ const App = () => {
     validationSchema: productValiditon,
 
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
 
 
 
       axios
-        .post(`${baseUrl}add-product`, {
+        .post(`${baseUrl}product`, {
           productName: values.productName,
           productPrice: values.productPrice,
           productDescription: values.productDescription,
         })
         .then((res) => {
-          console.log(res.data);
+          console.log(res);
           setApiLoad(!apiload);
 
           Swal.fire({
@@ -80,14 +79,19 @@ const App = () => {
   };
 
   const deleteProduct = (id) => {
-    axios.delete(`${baseUrl}delete-product/${id}`).then((res) => {
-      console.log(res.data);
+    axios.delete(`${baseUrl}product/${id}`)
+    .then((res) => {
+      console.log(res);
       setApiLoad(!apiload);
       Swal.fire({
         title: "Product Delete  Successfully!",
         icon: "success",
         draggable: true,
       });
+    })
+    .catch((error) => {
+        console.log("Error: ", error)
+
     });
   };
 
@@ -118,13 +122,13 @@ const App = () => {
     e.preventDefault()
     
 
-    axios.put(`${baseUrl}edit-product/${editId}`,{
+    axios.put(`${baseUrl}product/${editId}`,{
       productName :  addProductFormik.values.productName,
       productPrice : addProductFormik.values.productPrice,
       productDescription : addProductFormik.values.productDescription
     }
   ).then((res) => {
-    console.log(res.data)
+    console.log(res)
     closePopup()
     setApiLoad(!apiload)
     Swal.fire({
@@ -135,7 +139,7 @@ const App = () => {
 
   })
   .catch((error) => {
-    console.log(error)
+    console.log("Error: ",error)
   })
     
 
